@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import com.example.demo.configuration.Translator;
 import com.example.demo.dto.request.UserRequestDTO;
 import com.example.demo.dto.response.ResponseData;
 import com.example.demo.dto.response.ResponseError;
@@ -50,16 +51,16 @@ public class UserController {
 //					"""
 //			)))})
 	@PostMapping(value = "/" )//headers = "apiKey=v1.0")
-
 	public ResponseData<Integer> addUser(@Valid @RequestBody UserRequestDTO userDTO) {
 		System.out.println("Request add user: " + userDTO.getFirstName());
 		//return new ResponseError(HttpStatus.BAD_REQUEST.value(), "Cannot create user");
-		return new ResponseData<>(HttpStatus.CREATED.value(), "User added successfully", 1);
+		return new ResponseData<>(HttpStatus.CREATED.value(), Translator.toLocale("user.add.success"), 1);
 	}
 	
 	
 	@PutMapping("/{userId}")
-	public ResponseData<?> updateUser(@PathVariable("userId") int id, @Valid @RequestBody UserRequestDTO userDTO) {
+	public ResponseData<?> updateUser(@Min(value = 1, message = "userId must be greater than 0") 
+	              @PathVariable("userId") int id, @Valid @RequestBody UserRequestDTO userDTO) {
 		System.out.println("Request Update user with id = " + id);
 		return new ResponseData<>(HttpStatus.ACCEPTED.value(), "User updated successfully");
 	}

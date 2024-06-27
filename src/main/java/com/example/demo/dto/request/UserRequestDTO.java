@@ -30,7 +30,7 @@ public class UserRequestDTO implements Serializable {
 	@NotBlank(message = "firstName must be not blank")
 	private String firstName;
 	
-	@NotNull(message = "lastName must be not null")
+	@NotBlank(message = "lastName must be not null")
 	private String lastName;
 	
 	@Email(message = "email invalid format")
